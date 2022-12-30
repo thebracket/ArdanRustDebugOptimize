@@ -1,0 +1,17 @@
+[package]
+name = "src"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+
+[workspace]
+members = [
+    "buggy_input",
+    "buggy_input_cleaned",
+    "pretty_printing",
+    "pretty_print_debug",
+    "pretty_print_format",
+    "pretty_nested",
+    "logging",
+]
