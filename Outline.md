@@ -24,6 +24,11 @@
         * We'll implement `Display` to make printing structures easy.
         * We'll look at how to nest structures with `Debug` and `Display` for complex data.
         * We'll replace `println!` with a logging system that supports `syslog` and other logging systems.
+    * In the third hour:
+        * We'll go over some of the more common bugs encountered by newcomers to the Rust world.
+        * Floating point numbers.
+        * Unicode.
+        * Heap vs. Stack Storage.
 * Let's debug a simple program
     * REPL examples [here](https://replit.com/@HerbertWolverso).
     * Using `println` in a REPL (live!)
@@ -126,6 +131,90 @@
 ## Third Hour
 
 * Introduction
+    * We're going to talk about common bugs and how to avoid them.
+    * We've already seen the importance of unit tests, Rust has a lot more to offer in this regard.
+    * We're going to take this hour to tour some of the more common bugs encountered by Rust programmers.
+* Floating Point Precision
+    * Many higher-level languages shield you from the intricacies of IEEE 754 floating point numbers. Rust doesn't.
+    * Rust offers really high performance floating point code. It's tempting to use it everywhere. Be careful.
+    * Floating point numbers are inherently *approximations*. NEVER use them for money!
+    * Open https://replit.com/@HerbertWolverso/FloatingPointAddition#src/main.rs
+    * 0.1 + 0.2 really should equal 0.3
+    * Add `println!("{}", 0.1 + 0.2)`. `0.30000000000000004` probably wasn't what you meant.
+    * Rust has your back.
+        * Open the `floating_imprecision` project.
+        * Enable strict checks with `#[warn(clippy::pedantic)]`.
+        * Clippy now warns that the floating point comparison will fail, and provides an explanatory link: https://rust-lang.github.io/rust-clippy/master/index.html#float_cmp
+        * Add EPSILON check.
+    * So what do we do about this?
+        * As Clippy recommended, use EPSILON. 
+            * The `float_cmp` crate can make this easier.
+        * For money, don't use floats. Instead:
+            * Use an integer, multiplied by 100. Faster, accurate. Just be careful to pick a rounding strategy that your accountants like.
+            * Use one of the decimal crates: `rs-decimal` or `bigdecimal` are popular. `bigdecimal` is used by Diesel for database integrations.
+                * See https://replit.com/@HerbertWolverso/Decimal#src/main.rs
+                * This is similar to the `Decimal` type in C#
+        * Consider the precision you *need*. Are you ok with approximate answers? It's a problem if you are counting money, not so bad if you are estimating the distance to Mars---but really bad if you are trying to insert a probe into Mars orbit.
+* Unicode
+    * If you are coming from C or similar low-level languages, you probably expect `char` to be 8 bits.
+    * `u8` is 8 bits (as is `i8`). `char` is variable: it contains exactly one `UTF-8` character.
+    * Go to https://replit.com/@HerbertWolverso/StringLength#src/main.rs
+        * Strings are really a *vector* of `u8` entries. `String::len()` returns the number of *bytes* required to store the string.
+        * Characters are as large as they need to be for a unicode character. You have to use `chars().count()` to count the actual characters.
+        * Even then, there are some phrases that can be encoded in more than one way---so you can't always trust the count!
+    * This makes multi-lingual programmer easier---and can lead to some very subtle bugs when transmitting data.
+* Arrays just love being on the stack
+    * Not every language makes you worry about the difference between stack and heap. Rust is a systems language, you have to care.
+    * See https://replit.com/@HerbertWolverso/StackArrays#src/main.rs
+        * This crashes because `my_array` is entirely on the stack: and even though you have tons of memory, your stack is constrained to 64kb by default on Linux.
+    * So what can we do about it?
+        * Let's try allocating a `Box` and onto the stack. That didn't work either!
+        * Use a vector: `vec!` instead of an array, vectors are automatically heap allocated.
+        * If you really want a non-resizable container without the overhead, you can call `into_boxed_slice()`.
+* Wrap-Up 3rd Hour
+    * We've looked at some of the more common bug types: Floating point, unicode and memory allocation.
+    * Take a 12-minute break, we'll be back to finish up the day.
+
+## Fourth Hour
+
+* Introduction
+    * We'll wrap up the first day by talking about some of the ways in which the Rust toolchain can help you avoid bugs, and keep your team on course.
+* Documentation
+    * A lot of bugs are found during *integration*: your library code works, your application code works, but when the two come together---things just aren't what you expect.
+    * Usually, this is because the *intent* of the library developer doesn't match the *expectation* of the library consumer.
+    * You can't be 100% sure that you'll always solve this: but documentation gets you 90% of the way there.
+    * Fortunately, Rust has great documentation tools built in.
+        * Open `geometry_undocumented` project.
+        * It's a very simple library, but pretty complete: you have an exported public function and a unit test. The unit test even takes into account floating-point precision by using a formatted string to limit the output.
+        * You can probably guess what this does without documentation, but we'll use it for an example.
+        * Let's find the missing documentation. Add `#![warn(missing_docs)]`. The exclamation mark makes the directive apply to the whole project.
+        * Now open `geometry_documented`:
+            * `//!` at the top defines *crate-level* documentation. This describes the purpose of your library.
+            * Documentation uses Markdown, just like Github.
+            * Function documentation should include:
+                * A description of what the function does.
+                * All arguments, and what they are for.
+                * What is returned.
+            * You can now mouse-over the function and see documentation in your IDE.
+            * Now run `cargo doc --no-deps --open`
+                * If you forget `--no-deps`, Rust will document *everything* the crate uses as a dependency. This can take a while.
+                * Your browser opens with a searchable HTML documentation system.
+                * It's a great idea to include this in your Continuous Integration system to ensure everyone stays up-to-date.
+                * If you publish a crate, the Rust crate's system automatically publishes your documentation to `docs.rs`.
+        * Searchable documentation is great for details---but many people learn better from examples. Fortunately, Rust includes an `examples` system as well.
+            * `geometry_documented` includes an additional folder, next to `src`: `examples`
+            * `examples/area.rs` contains a simple example of using our library function.
+            * `cargo run --example` lists available examples.
+            * `cargo run --example area` runs the example.
+* Unit Testing your Documentation
+    * A major problem with in-source documentation is that it can grow stale. What if you change a function and forget to update the comments? There are volumes of text talking about this problem online.
+    * Open the `geometry_documented_full` project.
+        * The `area_of_a_circle` function now includes a test in the documentation itself.
+        * Run `cargo test` and the documentation examples are *also* tested.
+        * Now let's comply with a Kansas school board, in the 1990s when they defined PI as equal to 3.
+* Code Coverage
+    * https://blog.rng0.io/how-to-do-code-coverage-in-rust
+* Wrap-Up
 
 Debugging
 Avoiding Bugs

@@ -72,6 +72,22 @@ dependencies = [
 ]
 
 [[package]]
+name = "floating_imprecision"
+version = "0.1.0"
+
+[[package]]
+name = "geometry_documented"
+version = "0.1.0"
+
+[[package]]
+name = "geometry_documented_full"
+version = "0.1.0"
+
+[[package]]
+name = "geometry_undocumented"
+version = "0.1.0"
+
+[[package]]
 name = "hermit-abi"
 version = "0.2.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"

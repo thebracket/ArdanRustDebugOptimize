@@ -14,4 +14,8 @@ members = [
     "pretty_print_format",
     "pretty_nested",
     "logging",
+    "floating_imprecision",
+    "geometry_undocumented",
+    "geometry_documented",
+    "geometry_documented_full",
 ]
