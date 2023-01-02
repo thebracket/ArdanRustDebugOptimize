@@ -259,24 +259,64 @@
 ### First Hour
 
 * Introduction
+* Fail Fast
+    * Panic rather than accept questionable results
+    * Different ways to panic
+    * Panic in threads
+* Rust Error Handling
+    * The Result Type - no exceptions!
+    * Dynamic Results
+    * Anyhow
+    * Propagating Errors with `?`
+    * Ignoring Errors
+    * Performance Impact of Error-Handling
 * Wrap-Up
     * Take a short break (12 minutes)
 
 ### Second Hour
 
 * Introduction
+* Type Conversions
+    * `as` is easy, but can be wrong
+    * `into()` for easy conversions
+    * `try_into()` for conversions that might fail
+    * The magic `From` conversion
+* Unit Conversions
+    * Isn't it confusing when a geometry type can take radians or degrees - or doesn't specify distance units?
+    * Why type aliases don't help
+    * "New Types" - types within a type, with strong type guarantees.
+        * Introduce the concept of `MyType(AnotherType)`
+        * Create Radians and Degrees example.
+        * Expand `into` types to allow for conversion.
+        * The `X: Into<Y>` trait requirement for functions.
+        * Let's test automatic conversions
+    * Expanded Units
+        * Credit: https://www.ferrisellis.com/content/rust-implementing-units-for-types/
+        * Floating point accuracy problems
+        * Create a base `Length` type and `LengthUnit` trait, with conversion to nanometers and an output function.
+        * Creating units of length by implementing `LengthUnit`.
+        * Implementing conversion from numeric types.
+        * Testing with some geometry functions.
 * Wrap-Up
     * Take a short break (12 minutes)
 
 ### Third Hour
 
 * Introduction
+* "New Types" with range constraints
+* Fearless Concurrency
+    * C++ Example of data race
+    * Rust example---it won't compile
+    * Rust example with atomics
 * Wrap-Up
     * Take a short break (12 minutes)
 
 ### Fourth Hour
 
 * Introduction
+* Buffer Overruns
+* Checking for Overflow
+* Use after Move and Lifetimes
 * Wrap-Up
     * See You Tomorrow
 
@@ -285,50 +325,73 @@
 ### First Hour
 
 * Introduction
+* Understanding Cargo Profiles
+    * Release, Debug
+    * Adjusting Profiles
+    * LTO (Link Time Optimization)
+    * PGO (Profile Guided Optimization)
+    * `likely` and `unlikely`
 * Wrap-Up
     * Take a short break (12 minutes)
 
 ### Second Hour
 
 * Introduction
+* Measure before you cut: benchmarking
+* Critereon example with random numbers
 * Wrap-Up
     * Take a short break (12 minutes)
 
 ### Third Hour
 
 * Introduction
+* What about Micro-Optimizations?
+* Using a Profiler with Rust
 * Wrap-Up
     * Take a short break (12 minutes)
 
 ### Fourth Hour
 
 * Introduction
+* Allocate in Advance
+* Fixed-Size Iterators
+* Divide and conquer - slicing
 * Wrap-Up
     * See You Tomorrow
 
-## Day Four: Optimization
+## Day Four: Higher-Level Optimization
 
 ### First Hour
 
 * Introduction
+* Is your problem CPU or I/O bound?
+* CPU bound with Rayon
 * Wrap-Up
     * Take a short break (12 minutes)
 
 ### Second Hour
 
 * Introduction
+* I/O bound with async (and Tokio)
+* Tokio Blocking Functions
+* Taming the callback tree
 * Wrap-Up
     * Take a short break (12 minutes)
 
 ### Third Hour
 
 * Introduction
+* When you have both I/O and CPU bound problems
+* When the Algorithm is the Problem
+    * Primes example redux, using a sieve
 * Wrap-Up
     * Take a short break (12 minutes)
 
 ### Fourth Hour
 
 * Introduction
+* The speed vs. accuracy tradeoff
+* Why not both? Using feature flags to offer the recipient choice
 * Wrap-Up
     * See You Tomorrow
 
@@ -337,27 +400,26 @@
 ### First Hour
 
 * Introduction
+* Tokio Tracing
 * Wrap-Up
     * Take a short break (12 minutes)
 
 ### Second Hour
 
 * Introduction
+* Logging Strategies for Distributed Applications
 * Wrap-Up
     * Take a short break (12 minutes)
 
 ### Third Hour
 
 * Introduction
+* Understanding Your Bottleneck
 * Wrap-Up
     * Take a short break (12 minutes)
 
 ### Fourth Hour
 
 * Introduction
+* Where to Insert Rust into your Architecture
 * Wrap-Up
-
-Debugging
-Avoiding Bugs
-Optimization
-Distributed Applications
