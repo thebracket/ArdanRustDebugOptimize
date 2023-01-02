@@ -212,8 +212,149 @@
         * The `area_of_a_circle` function now includes a test in the documentation itself.
         * Run `cargo test` and the documentation examples are *also* tested.
         * Now let's comply with a Kansas school board, in the 1990s when they defined PI as equal to 3.
+            * Open https://replit.com/@HerbertWolverso/GeometryKansasCompliant#examples/area.rs
+            * We've added an `in_kansas` parameter, and updated our unit tests.
+            * Run `cargo test`---and the test fails! Rust also tested the example code, so now we have to fix that.
+                * Add `, false` to the example code and a comment that we're not in Kansas
+            * Run `cargo test`---and it still fails! The example in the documentation is invalid.
+            * Add `, false` to the example---and it works. But notice that we didn't document the new argument. Rust won't catch that. So some diligence is still required.
 * Code Coverage
-    * https://blog.rng0.io/how-to-do-code-coverage-in-rust
+    * Quick reports with `Tarpaulin`
+        * Tarpaulin is a helper to make code coverage testing easier. https://github.com/xd009642/tarpaulin    
+        * Install "Tarpaulin" with `cargo install cargo-tarpaulin`.
+        * Run with `cargo tarpaulin`
+            * You see a summary of code coverage.
+            * If you've run it before, it also shows the change from the previous run.
+        * Run with `cargo tarpaulin --engine LLVM` for a slower but more accurate report.
+        * Run with `cargo tarpaulin --out Html` for a web-browser friendly version.
+        * The `Lcov` target.
+            * A commonly used LLVM coverage format, compatible with a lot of other tools.
+            * Install the Visual Studio Code extension `coverage_gutters`
+    * Detailed reports with `grcov`        
+        * Install "llvm-profdata" with `rustup component add llvm-tools-preview`
+        * Install "grcov" with `cargo install grcov`
+        * Set environment variables:
+            * On Windows: 
+                * `$env:RUSTFLAGS="-Cinstrument-coverage"`
+                * `LLVM_PROFILE_FILE="your_name-%p-%m.profraw"`
+            * Everywhere else: 
+                * `export RUSTFLAGS="-Cinstrument-coverage"`
+                * `export LLVM_PROFILE_FILE="your_name-%p-%m.profraw"`
+        * Run your tests (`cargo test --all`)
+        * Run `grcov . -s . --binary-path ./target/debug/ -t html --branch --ignore-not-existing -o ./target/debug/coverage/` and view the output in `target/debug/coverage/index.html`
+        * You can also make a `.lcov` output.
+            * `grcov . -s . --binary-path ./target/debug/ -t lcov --branch --ignore-not-existing -o ./target/debug/coverage/lcov.info`
+            * Install the `Coverage Gutters` Visual Studio Code Extension.
+            * Click "watch" - you now have coverage displayed in your IDE.
+    * That was quite a lot of work, just to generate a coverage report. Let's automate it.
+        * Install `xtasks`, a Makefile-like system but pure Rust and cross-platform with `cargo install cargo-xtask`.
+        * Create a new task with `cargo new --bin xtask`
+        * Add it to our workspace in `Cargo.toml`
+        * See the `xtask` project
+    * For a much more detailed guide and other options: https://blog.rng0.io/how-to-do-code-coverage-in-rust
+* Wrap-Up
+
+## Day Two: Avoiding Bugs
+
+### First Hour
+
+* Introduction
+* Wrap-Up
+    * Take a short break (12 minutes)
+
+### Second Hour
+
+* Introduction
+* Wrap-Up
+    * Take a short break (12 minutes)
+
+### Third Hour
+
+* Introduction
+* Wrap-Up
+    * Take a short break (12 minutes)
+
+### Fourth Hour
+
+* Introduction
+* Wrap-Up
+    * See You Tomorrow
+
+## Day Three: Optimization
+
+### First Hour
+
+* Introduction
+* Wrap-Up
+    * Take a short break (12 minutes)
+
+### Second Hour
+
+* Introduction
+* Wrap-Up
+    * Take a short break (12 minutes)
+
+### Third Hour
+
+* Introduction
+* Wrap-Up
+    * Take a short break (12 minutes)
+
+### Fourth Hour
+
+* Introduction
+* Wrap-Up
+    * See You Tomorrow
+
+## Day Four: Optimization
+
+### First Hour
+
+* Introduction
+* Wrap-Up
+    * Take a short break (12 minutes)
+
+### Second Hour
+
+* Introduction
+* Wrap-Up
+    * Take a short break (12 minutes)
+
+### Third Hour
+
+* Introduction
+* Wrap-Up
+    * Take a short break (12 minutes)
+
+### Fourth Hour
+
+* Introduction
+* Wrap-Up
+    * See You Tomorrow
+
+## Day Five: Dealing with Distributed Applications
+
+### First Hour
+
+* Introduction
+* Wrap-Up
+    * Take a short break (12 minutes)
+
+### Second Hour
+
+* Introduction
+* Wrap-Up
+    * Take a short break (12 minutes)
+
+### Third Hour
+
+* Introduction
+* Wrap-Up
+    * Take a short break (12 minutes)
+
+### Fourth Hour
+
+* Introduction
 * Wrap-Up
 
 Debugging

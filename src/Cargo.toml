@@ -18,4 +18,5 @@ members = [
     "geometry_undocumented",
     "geometry_documented",
     "geometry_documented_full",
+    "xtask",
 ]
