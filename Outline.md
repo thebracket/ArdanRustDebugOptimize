@@ -11,6 +11,10 @@ from a high-level perspective and small optimizations that can make a difference
 with an overview of fitting Rust into distributed architectures and debugging/optimizing your overall
 pipeline.
 
+> Debugging is important, and takes up a lot of a developer's time. Rust has great tools to help you ship working programs. A combination of immediate debugging strategies---fixing errors quickly---and long-term strategies to avoid regressions and enhance the likelihood that version 1 isn't a version to avoid helps you ship products faster.
+
+> Optimization reduces overall TCO (Total Cost of Ownership) of projects. A program that uses less CPU time is a program that requires fewer server resources to run---whether AWS CPU time you are renting, or your own data-center. Reducing your TCO also gives you "green" credentials: you are wasting less energy and heat.
+
 **Day 1**                  | **Day 2**                      | **Day 3**                     | **Day 4**                                | **Day 5**
 ---------------------------|--------------------------------|-------------------------------|------------------------------------------|-------------------------
 **[Debugging](./Day1.md)** | **[Avoiding Bugs](./Day2.md)** | **[Optimization](./Day3.md)** | **[High-level Optimization](./Day4.md)** | **[Distributed Applications](./Day5.md)**

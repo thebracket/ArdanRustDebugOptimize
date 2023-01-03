@@ -4,6 +4,25 @@
 
 ### 1.1.1 Introduction
 
+* Welcome to Day 1 of Ultimate Rust: Debugging & Optimizing Programs
+* Who am I?
+    * I'm Herbert Wolverson.
+    * I started writing code in the 1980s on an 8-bit BBC Micro.
+    * My first Rust publication is the [Rust Roguelike Tutorial](https://bfnightly.bracketproductions.com/)
+    * I'm the author of [Hands-on Rust](https://pragprog.com/titles/hwrust/hands-on-rust/)
+    * I'm also the author of [Rust Brain Teasers](https://pragprog.com/titles/hwrustbrain/rust-brain-teasers/)
+    * My third book is in development and should be in beta soon.
+* What are we Going to Cover?
+    * Today we're going to talk about debugging strategies.
+    * Tomorrow, we'll talk about how Rust can help you avoid bugs to begin with.
+    * On the 3rd and 4th days, we'll talk about optimization.
+    * On the 5th day, we'll talk about inserting Rust into distributed applications, finding your bottlenecks and using Rust to help.
+    * Debugging is important, and takes up a lot of a developer's time. Rust has great tools to help.
+    * Working code is vital to the success of your operation: nobody wants to use a broken program.
+    * A combination of immediate debugging strategies---fixing errors quickly---and long-term strategies to avoid regressions and enhance the likelihood that version 1 isn't a version to avoid helps you ship products faster.
+    * Optimization reduces overall TCO (Total Cost of Ownership) of projects.
+    * A program that uses less CPU time is a program that requires fewer server resources to run---whether AWS CPU time you are renting, or your own data-center.
+    * Reducing your TCO also gives you "green" credentials: you are wasting less energy and heat.
 * Today we're going to talk about debugging Rust programs.
 * In the first hour:
     * We'll start with a program that frequently trips up newcomers to Rust: asking a user for their name.
@@ -21,6 +40,10 @@
     * Floating point numbers.
     * Unicode.
     * Heap vs. Stack Storage.
+* In the final hour:
+    * Documentation
+    * Documentation Bugs and Testing
+    * Code Coverage
 
 ### 1.1.2 Debugging Example
 
@@ -277,4 +300,11 @@
 
 ### 1.4.5 Day One Wrap-Up
 
-* Wrap-Up (TODO)
+* Today, we've looked at:
+    * Debugging a simple program, using a debugger or printing.
+    * Controlling print-based output.
+    * Using a logging framework to integrate Rust logging into your existing logging architecture.
+    * Some common sources of failure: floating point numbers, unicode, and stack issues.
+    * Documentation, examples, and including Documentation Testing in your test framework.
+    * Calculating Code Coverage to Test your Tests
+* Tomorrow, we're going to focus on how Rust can help you avoid creating bugs in the first place.
