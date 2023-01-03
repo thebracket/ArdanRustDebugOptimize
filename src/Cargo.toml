@@ -31,4 +31,7 @@ members = [
     "as_into",
     "as_try_into",
     "into_traits",
+    "type_aliases",
+    "newtype_degrees",
+    "newtype_degrees_radians",
 ]

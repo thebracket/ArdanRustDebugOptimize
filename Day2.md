@@ -145,12 +145,24 @@
 * Unit Conversions
     * Isn't it confusing when a geometry type can take radians or degrees - or doesn't specify distance units?
     * Why type aliases don't help
+        * Open `type_aliases` project. REPL: TODO.
+        * We have a structure that defines a point.
+        * We have a function that projects another point given a radius and angle.
+        * We project 90 degrees---and it goes diagonally?
+        * `sin` and `cos` both require *radians*. We can change `Angle` to a meaningful name---but it doesn't prevent the confusion.
     * "New Types" - types within a type, with strong type guarantees.
-        * Introduce the concept of `MyType(AnotherType)`
-        * Create Radians and Degrees example.
-        * Expand `into` types to allow for conversion.
-        * The `X: Into<Y>` trait requirement for functions.
-        * Let's test automatic conversions
+        * A popular Rust pattern to avoid this problem completely is the `NewType` pattern---sometimes called a "type wrapper".
+        * Open the project `newtype_degrees`. REPL: TODO.
+            * We've made a new `struct` named `Radians`.
+            * It's a "tuple" struct: it contains one internal field.
+            * By requiring `project_angle` require a `Radians` type, we've made the intent obvious.
+            * We're still converting to radians in the main body. Not as ergonomic as we'd like.
+        * Open the project `newtype_degrees_radians`. REPL: TODO.
+            * We've added a `Degrees` type as well.
+            * We've implemented the `From` type for both `Degrees` and `Radians`.
+            * This allows you to do `let n:Radians = Degrees(90.0).into()` and have seamless conversion.
+            * The `project_angle` function has been extended to require an `Into<Radians>` type and performs the conversion.
+            * The program now lets you work in Degrees or Radians, without having to worry about conversion.
     * Expanded Units
         * Credit: https://www.ferrisellis.com/content/rust-implementing-units-for-types/
         * Floating point accuracy problems
