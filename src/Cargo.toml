@@ -27,5 +27,8 @@ members = [
     "multi_error",
     "multi_error_anyhow",
     "error_propagation",
-    
+    "as_is",
+    "as_into",
+    "as_try_into",
+    "into_traits",
 ]

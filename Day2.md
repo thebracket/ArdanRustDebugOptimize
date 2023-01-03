@@ -109,9 +109,36 @@
 
 * Type Conversions
     * `as` is easy, but can be wrong
+        * Open the project `as_is`. REPL: TODO
+        * Notice that we are setting `n` to the maximum possible `u64` - and then casting it to a `u32`.
+        * We're also setting `n` to a negative number, and casting it to a `u32`.
+        * Neither operation makes sense: but `cargo clippy` doesn't give you any warnings, and `cargo run` completes with incorrect results.
+        * **This is dangerous**: `as` is very convenient, but you won't receive any warning that it is causing incorrect results.
     * `into()` for easy conversions
+        * For always-safe conversions, you can use `into()`. 
+        * Open the `as_into` project. REPL: TODO
+            * The same conversions fail to compile: the conversions are not guaranteed to be safe.
+            * You can always upcast an equivalently signed type. You can't always go back.
+            * `into` is very convenient for safe conversion.
+            * Change to safe conversions, and it works.
     * `try_into()` for conversions that might fail
+        * For conversion between signed and unsigned, or larger types to smaller types---they *might* work.
+        * Open `as_try_into`. REPL: TODO.
+            * We are now using `try_into` instead of `into`.
+            * `try_into` returns a `Result`---so you can treat it like any other result.
+                * You can unwrap it
+                * Map it
+                * Use a default
+                * Match it
+                * Propagate with `?`
+            * Avoid safety problems and use `try_into` for conversions that might fail.
     * The magic `From` conversion
+        * The verbosity of type conversions with `into()` everywhere can get messy.
+        * You can use Rust's traits system to help.
+        * Open `into_traits` project. REPL: TODO.
+            * We've created two functions that use the generic type `TryInto<type>`.
+            * You can pass any numeric value of a possibly convertible type, and failure will occur at runtime.
+            * You've moved the cognitive burden away from your users, and onto the library developer.
 
 ### 2.2.3 Unit Conversions
 
