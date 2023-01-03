@@ -164,17 +164,30 @@
             * The `project_angle` function has been extended to require an `Into<Radians>` type and performs the conversion.
             * The program now lets you work in Degrees or Radians, without having to worry about conversion.
     * Expanded Units
-        * Credit: https://www.ferrisellis.com/content/rust-implementing-units-for-types/
-        * Floating point accuracy problems
-        * Create a base `Length` type and `LengthUnit` trait, with conversion to nanometers and an output function.
-        * Creating units of length by implementing `LengthUnit`.
-        * Implementing conversion from numeric types.
-        * Testing with some geometry functions.
+        * Easy conversion between types is great, but ignores another problem we highlighted earlier: floating point accuracy.
+        * Converting between distances in floating-point will result in errors.
+        * Depending upon your target tolerances, these errors may or may not be ok.
+        * Open the `length` project. REPL: TODO.
+            * We've created an enumeration of length types we support.
+            * We've implemented a function to allow us to convert to/from nanometers.
+            * We can add more distances by implementing them in the enumeration.
+                * Let's say someone wants miles.
+                * There are 1,609,344,000,000 nanometers in a mile.
+                * So we add a `Miles` enumeration entry and a matching `units_per_nanometer` entry.
+                * We can now convert to miles.
+        * Open the 'miles` project. REPL: TODO:
+            * We've implemented `Miles` as a unit.
+            * We've added a very silly display function showing that you can now pass in any unit, convert it, and receive a usable answer.
+        * See: https://www.ferrisellis.com/content/rust-implementing-units-for-types/ for an advanced version
 
 ### 2.2.4 Second Hour Wrap-Up
 
 * Wrap-Up
-    * TODO
+    * In this hour, we've covered:
+        * The perils of type conversion.
+        * Protecting yourself with `into()` and `try_into()`.
+        * Reducing cognitive load with generic types.
+        * Methods of representing distance without floating point errors or unit conversion problems.
     * Take a short break (12 minutes)
 
 ## 2.3 Third Hour

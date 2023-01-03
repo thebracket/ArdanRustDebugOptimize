@@ -34,4 +34,6 @@ members = [
     "type_aliases",
     "newtype_degrees",
     "newtype_degrees_radians",
+    "length",
+    "miles",
 ]
