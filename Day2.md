@@ -49,15 +49,51 @@
 ### 2.1.3 Rust Error Handling
 
 * The Result Type - no exceptions!
-* Dynamic Results
-* Anyhow
+    * Rust has two ways to express failure:
+        * `Option` is the equivalent of `null`: it either contains a value or it doesn't.
+        * `Result` contains either a value, or a specific error describing what happens.
+    * These differ from exceptions in that they are returned from a function like a regular variable.
+    * These differ from checked-exceptions (such as Java) in that ignoring them generates a warning, not a compiler error.
+    * Let's look at these in action. Open the project `result_option`.
+        * `maybe_success` returns an `Option`. It has either `Some(..)` or `None`. This is good for specifying whether a result exists at all, but gives no clue as to why a failure occurred.
+        * `success_or_error` uses a custom type to represent an error, in this case `NotEqualToFour`.
+        * It's more verbose, but you can see exactly what went wrong.
+* Handling Different types of Error
+    * Rust errors are very specific.
+    * It's quite possible to wind up needing to handle multiple types of error.
+    * Open `multi_error`. REPL: TODO
+        * We have two functions returning different types of error.
+        * The calling function then returns any error it receives.
+        * This requires a LOT of boilerplate:
+            * Each error has to implement the `Error` type.
+            * Each error has to implement `Display` to print out the error.
+            * Errors themselves are wrapped in `dyn Box` - a smart pointer featuring dynamic dispatch.
+            * Performance is good, but maintaining a lot of errors can become cumbersome.
+        * Let's reduce the boilerplate a bit
+    * Open `multi_error_anyhow`. REPL: TODO:
+        * We've added a dependency on `anyhow`.
+        * `anyhow` provides convenience wrappers to simplify multi-error handling.
+        * We've removed the custom error types.
+        * The output remains the same.
+        * When you care that an error occurred more than you care about a specific type of error, `anyhow` is essential.
 * Propagating Errors with `?`
+    * Matching on errors can become unwieldy. Rust includes the `?` operator to help.
+    * Open `error_propagation`. REPL: TODO:
+        * We've replaced all of the `match` and `unwrap` with `?`
+        * Question mark automatically unwraps, or propagates the error to the caller if an error occurs.
+        * You can only use `?` in functions that return a `Result` type.
+        * You can make `main` return a `Result` and use the propagation all the way up.
 * Ignoring Errors
-* Performance Impact of Error-Handling
+    * Sometimes, you don't care if an error occurred. Particularly in server loops, sometimes you just want to try to keep going.
+    * If you call an error-returning function without handling the error, Rust gives you a warning.
+    * If you *really* don't want to handle the error, `let _ = my_erroneous_function()` will suppress the warning.
 
 ### 2.1.4 First Hour Wrap-Up
 
-* TODO
+* In this section, we've talked about:
+    * The virtues of failing fast.
+    * Panics and handling panics.
+    * Rust's error propagation model.
 * Take a short break (12 minutes)
 
 ## 2.2 Second Hour
@@ -67,6 +103,7 @@
 * In this hour, we will talk about two of the most common sources of errors in what looks like valid code:
     * Type Conversion
     * Units of Measurement
+* Because they look like valid code, failure can easily trip you up.
 
 ### 2.2.2 Type Conversion
 

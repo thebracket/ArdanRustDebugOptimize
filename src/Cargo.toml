@@ -23,4 +23,9 @@ members = [
     "unwrap",
     "panic_thread",
     "panic_handler",
+    "result_option",
+    "multi_error",
+    "multi_error_anyhow",
+    "error_propagation",
+    
 ]
