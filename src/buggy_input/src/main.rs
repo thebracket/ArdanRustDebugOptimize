@@ -8,5 +8,7 @@ fn main() {
 
     if buffer == "Herbert" {
         println!("Hello Herbert");
+    } else {
+        println!("You aren't an authorized user.")
     }
 }

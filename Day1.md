@@ -101,7 +101,7 @@
     * `println!` is thread-safe.
     * Sometimes, attaching a debugger is impractical - you can always fall back on logging.
 * Printing structures
-    * Open `pretty_printing` project.
+    * Open `pretty_printing` project. REPL: https://replit.com/@HerbertWolverso/PrettyPrinting#src/main.rs
     * Notice that we've changed `clean_string` to take a reference.
     * We've added a `User` structure and a pre-populated list of users.
     * We use the `find` iterator function to see if the requested user exists.
@@ -109,7 +109,7 @@
         * If it doesn't, we bail out.
     * That's not very ergonomic. How can we easily print the user's details?
     * Option 1: Deriving debug
-        * Open `pretty_print_debug` project.
+        * Open `pretty_print_debug` project. REPL: https://replit.com/@HerbertWolverso/PrettyPrintingDebug#src/main.rs
         * We've added `#[derive(Debug)]` to `User`
         * Replace the printing with `println!("{:?}", user),`
         * It now outputs `User { name: "Herbert", full_name: "Herbert Wolverson", age: 47 }`
@@ -117,7 +117,7 @@
         * You can use `{:#?}` to use a default formatter that breaks up the output.
         * Notice that Clippy (the linter) is now warning you that you aren't using the other fields.
     * Option 2: Implementing Display
-        * Open the `pretty_print_format` project.
+        * Open the `pretty_print_format` project. REPL: https://replit.com/@HerbertWolverso/PrettyPrintingFormat#src/main.rs
         * We've left `#[derive(Debug)]` - it's useful and doesn't add much weight. Release mode will remove it if it is unused.
         * We've imported `use std::fmt::{Display, Formatter};`.
         * We've added `impl Display for User` and a format block.
@@ -125,7 +125,7 @@
         * No more warnings!
         * We can now print the user with just `println!("{user}")`
 * Nesting Structures
-    * Open the `pretty_nested` project.
+    * Open the `pretty_nested` project. REPL: https://replit.com/@HerbertWolverso/PrettyNested#src/main.rs
     * Add an `Age` structure containing `birth_year`.
     * Adjust `User` to store an age, and the test record to setup Herbert with the correct year.
     * Notice that it instantly flags as an error: age doesn't support `Display` or `Debug` - Rust detects this, and since the *parent* structure has these properties --- you can't compile until you apply them.
@@ -138,7 +138,7 @@
     
 * In a real application, you want to log errors rather than just printing.
 * The system is very similar, and all of your `Debug` and `Display` work still applies.
-* Open the `logging` example.
+* Open the `logging` example. REPL: https://replit.com/@HerbertWolverso/Logging#src/main.rs
 * In `Cargo.toml`, we've added a dependency on the `log` crate. This is the most commonly used logging system, supporting UNIX `syslog`, `stdout`, `stderr` and configurable logging.
 * We've also imported `env_logger`, which allows you to set logging levels with environment variables.
 * Adding `env_logger::init();` is necessary to read the environment variables and setup logging.

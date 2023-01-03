@@ -19,4 +19,8 @@ members = [
     "geometry_documented",
     "geometry_documented_full",
     "xtask",
+    "panic",
+    "unwrap",
+    "panic_thread",
+    "panic_handler",
 ]
